@@ -110,7 +110,7 @@ func (derr *DeepError) AddDebugField(key string, value interface{}) {
 
 // internal usage for formatting/pretty printing
 func prependToLines(para, prefix string) string {
-	lines := strings.Split(para, "\r")
+	lines := strings.Split(para, "\n")
 	for i, line := range lines {
 		lines[i] = prefix + line
 	}
