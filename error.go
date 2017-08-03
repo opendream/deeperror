@@ -110,11 +110,11 @@ func (derr *DeepError) AddDebugField(key string, value interface{}) {
 
 // internal usage for formatting/pretty printing
 func prependToLines(para, prefix string) string {
-	lines := strings.Split(para, "\n")
+	lines := strings.Split(para, "\r")
 	for i, line := range lines {
 		lines[i] = prefix + line
 	}
-	return strings.Join(lines, "\n")
+	return strings.Join(lines, "\r")
 }
 
 //
@@ -140,28 +140,28 @@ func (e *DeepError) Error() string {
 
 	debugFieldStrings := make([]string, 0, len(e.DebugFields))
 	for k, v := range e.DebugFields {
-		str := fmt.Sprintf("\n-- DebugField[%s]: %+v", k, v)
+		str := fmt.Sprintf("\r-- DebugField[%s]: %+v", k, v)
 		debugFieldStrings = append(debugFieldStrings, str)
 	}
 
 	dbgMsg := ""
 	if len(e.DebugMsg) > 0 {
-		dbgMsg = "\n-- DebugMsg: " + e.DebugMsg
+		dbgMsg = "\r-- DebugMsg: " + e.DebugMsg
 	}
 
 	return fmt.Sprintln(
-		"\n\n-- DeepError",
+		"\r\r-- DeepError",
 		e.Num,
 		e.StatusCode,
 		e.Filename,
 		e.CallingMethod,
 		"line:", e.Line,
-		"\n-- EndUserMsg: ", e.EndUserMsg,
+		"\r-- EndUserMsg: ", e.EndUserMsg,
 		dbgMsg,
 		strings.Join(debugFieldStrings, ""),
-		"\n-- StackTrace:",
+		"\r-- StackTrace:",
 		strings.TrimLeft(prependToLines(e.StackTrace, "-- "), " "),
-		"\n-- ParentError:", parentError,
+		"\r-- ParentError:", parentError,
 	)
 }
 
